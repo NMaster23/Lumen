@@ -18,5 +18,7 @@
         "build/processIncludeJars": true,
         "build/reports": true,
         "build/tmp": true
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic"
 }
