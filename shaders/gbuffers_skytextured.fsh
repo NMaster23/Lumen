@@ -12,7 +12,6 @@ layout(location = 0) out vec4 color;
 
 void main() {
 	color = texture(gtexture, texcoord) * glcolor;
-	color.r = 1.0;
 	if (color.a < alphaTestRef) {
 		discard;
 	}
