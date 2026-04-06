@@ -1,7 +1,7 @@
 #version 330 compatibility
 
-uniform sampler2D lightmap;
 uniform sampler2D gtexture;
+uniform sampler2D lightmap;
 
 uniform float alphaTestRef = 0.1;
 

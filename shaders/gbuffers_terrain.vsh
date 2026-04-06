@@ -3,6 +3,7 @@
 out vec2 lmcoord;
 out vec2 texcoord;
 out vec4 glcolor;
+out vec3 normal;
 
 void main() {
 	gl_Position = ftransform();
