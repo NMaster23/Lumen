@@ -51,16 +51,22 @@ void main() {
     vec3 viewPos = projectAndDivide(gbufferProjectionInverse, ndcPos); // position in view space
     vec3 feetPlayerPos = (gbufferModelViewInverse * vec4(viewPos, 1.0)).xyz; // position relative to the feet of the player
     vec3 shadowViewPos = (shadowModelView * vec4(feetPlayerPos, 1.0)).xyz;
-    vec4 shadowClipPos = shadowProjection * vec4(shadowViewPos, 1.0);\
-    shadowClipPos.z -= 0.001; // shadow bias to prevent acne
+    vec4 shadowClipPos = shadowProjection * vec4(shadowViewPos, 1.0);
     vec3 shadowNdcPos = shadowClipPos.xyz / shadowClipPos.w;
     vec3 shadowScreenPos = shadowNdcPos * 0.5 + 0.5;
 
-    float shadow = step(shadowScreenPos.z, texture(shadowtex0, shadowScreenPos.xy).r);
+    float shadow = 1.0;
+    if (shadowScreenPos.x >= 0.0 && shadowScreenPos.x <= 1.0 &&
+        shadowScreenPos.y >= 0.0 && shadowScreenPos.y <= 1.0 &&
+        shadowScreenPos.z >= 0.0 && shadowScreenPos.z <= 1.0) {
+        shadow = step(shadowScreenPos.z - 0.001, texture(shadowtex0, shadowScreenPos.xy).r);
+    }
     
     vec3 blocklight = lightmap.x * blocklightColor;
-    vec3 skylight = lightmap.y * skylightColor;
-    vec3 ambient = ambientColor;
-    vec3 sunlight = sunlightColor * clamp(dot(worldLightVector, normal), 0.0, 1.0) * shadow; // we'll fix this in a minute!
-    color.rgb *= blocklight + sunlight + ambient;
+    float ndotl = max(dot(worldLightVector, normal), 0.0);
+    float sunMask = ndotl * lightmap.y;
+    float shadowDarkness = 0.45;
+    float shadowFactor = mix(shadowDarkness, 1.0, shadow);
+    color.rgb *= mix(1.0, shadowFactor, sunMask);
+
 }
