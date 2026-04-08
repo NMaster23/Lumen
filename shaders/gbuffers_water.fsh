@@ -21,11 +21,14 @@ vec4 water_rgba2 = vec4(0.0, 0.0, 0.5, 0.01);
 void main() {
 	color = texture(gtexture, texcoord) * glcolor;
 	color *= texture(lightmap, lmcoord);
-	if (t > 0.0) {
-		color.rgb = water_rgba.rgb;
-	} if (t > 13000.0) {
-		color.rgb = water_rgba2.rgb;
+	float daynight = mod(t, 24000.0);
+	float fade;
+	if (daynight <= 13000.0) {
+		fade = smoothstep(0.0, 13000.0, daynight);
+	} else {
+		fade = 1.0 - smoothstep(13000.0, 24000.0, daynight);
 	}
+	color.rgb = mix(water_rgba.rgb, water_rgba2.rgb, fade);
 	if (color.a < alphaTestRef) {
 		discard;
 	}

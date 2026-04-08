@@ -47,9 +47,9 @@ void main() {
         return;
     }
 
-    vec3 ndcPos = vec3(texcoord.xy, depth) * 2.0 - 1.0; // normalized device coordinates (NDC); [-1.0, 1.0]
-    vec3 viewPos = projectAndDivide(gbufferProjectionInverse, ndcPos); // position in view space
-    vec3 feetPlayerPos = (gbufferModelViewInverse * vec4(viewPos, 1.0)).xyz; // position relative to the feet of the player
+    vec3 ndcPos = vec3(texcoord.xy, depth) * 2.0 - 1.0;
+    vec3 viewPos = projectAndDivide(gbufferProjectionInverse, ndcPos);
+    vec3 feetPlayerPos = (gbufferModelViewInverse * vec4(viewPos, 1.0)).xyz;
     vec3 shadowViewPos = (shadowModelView * vec4(feetPlayerPos, 1.0)).xyz;
     vec4 shadowClipPos = shadowProjection * vec4(shadowViewPos, 1.0);
     vec3 shadowNdcPos = shadowClipPos.xyz / shadowClipPos.w;
