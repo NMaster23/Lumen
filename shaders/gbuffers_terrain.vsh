@@ -23,7 +23,23 @@ void main() {
     }
 	if (blockid == 10002) {
         vec3 worldPos = pos.xyz;
-	    float windPhase = worldPos.x * 0.25 + worldPos.z * 0.35 + frameTimeCounter * 2.0;
+	    float windPhase = worldPos.x * 0.25 + worldPos.z * 0.35 + frameTimeCounter * 0.9;
+	    float heightFactor = clamp(fract(worldPos.y), 0.0, 1.0);
+	    float swayStrength = 0.05 + heightFactor * 0.1;
+        vec3 sway = vec3(sin(windPhase) * swayStrength, cos(windPhase * 0.8) * swayStrength * 0.6, 0.0) * heightFactor;
+	    pos.xyz += sway;
+    }
+	if (blockid == 10003) {
+        vec3 worldPos = pos.xyz;
+	    float windPhase = worldPos.x * 0.25 + worldPos.z * 0.35 + frameTimeCounter * 1.0;
+	    float heightFactor = clamp(fract(worldPos.y), 0.0, 1.0);
+	    float swayStrength = 0.05 + heightFactor * 0.1;
+        vec3 sway = vec3(sin(windPhase) * swayStrength, cos(windPhase * 0.8) * swayStrength * 0.6, 0.0) * heightFactor;
+	    pos.xyz += sway;
+    }
+	if (blockid == 10004) {
+        vec3 worldPos = pos.xyz;
+	    float windPhase = worldPos.x * 0.25 + worldPos.z * 0.35 + frameTimeCounter * 1.75;
 	    float heightFactor = clamp(fract(worldPos.y), 0.0, 1.0);
 	    float swayStrength = 0.05 + heightFactor * 0.1;
         vec3 sway = vec3(sin(windPhase) * swayStrength, cos(windPhase * 0.8) * swayStrength * 0.6, 0.0) * heightFactor;
