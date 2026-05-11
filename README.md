@@ -1,5 +1,7 @@
 ___This Project was originally for Lumen, but I got no word on that, so this is being changed to HackCraft___
 
+This project is just a collection of subtle tweaks, that I think make the whole experience look better. It makes the terrain look brighter, has color mixing for the water, and makes it look better in my opinion. It makes the sand look eye searing like it would in real life and other subtle tweaks like that.
+
 Welcome! This is a template for developing a 1.21.5 Minecraft shader with Iris. All shader files are in the `shaders` folder. They currently don't do anything special.
 
 From the terminal, you can run:
